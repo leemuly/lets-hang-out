@@ -9,7 +9,7 @@ export default function CatalogScreen() {
 }
 
 CatalogScreen.navigationOptions = {
-  title: 'Links',
+  title: 'Saved Quotes',
 };
 
 const styles = StyleSheet.create({

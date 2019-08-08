@@ -10,7 +10,7 @@ export default function LinksScreen() {
 }
 
 LinksScreen.navigationOptions = {
-  title: 'Links',
+  title: 'Your Shelf',
 };
 
 const styles = StyleSheet.create({
