@@ -4,7 +4,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import CatalogScreen from '../screens/CatalogScreen'
+import ShelfScreen from '../screens/ShelfScreen';
+import CardScreen from '../screens/CardScreen'
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -26,8 +28,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-gift${focused ? '' : '-outline'}`
+          : 'md-gift'
       }
     />
   ),
@@ -35,21 +37,54 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const CatalogStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    Catalog: CatalogScreen,
   },
   config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+CatalogStack.navigationOptions = {
+  tabBarLabel: 'Catalog',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-barcode' : 'md-barcode'} />
   ),
 };
 
-LinksStack.path = '';
+CatalogStack.path = '';
+
+const ShelfStack = createStackNavigator(
+  {
+    Shelf: ShelfScreen,
+  },
+  config
+);
+
+ShelfStack.navigationOptions = {
+  tabBarLabel: 'Shelf',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-bookmarks' : 'md-bookmarks'} />
+  ),
+};
+
+ShelfStack.path = '';
+
+const CardStack = createStackNavigator(
+  {
+    Card: CardScreen,
+  },
+  config
+);
+
+CardStack.navigationOptions = {
+  tabBarLabel: 'Quotes',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-journal' : 'md-journal'} />
+  ),
+};
+
+CardStack.path = '';
+
 
 const SettingsStack = createStackNavigator(
   {
@@ -69,7 +104,9 @@ SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  CatalogStack,
+  ShelfStack,
+  CardStack,
   SettingsStack,
 });
 
