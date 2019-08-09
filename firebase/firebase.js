@@ -27,4 +27,15 @@ export class FirebaseWrapper {
 
     return this._firebaseWrapperInstance;
   }
+
+  async CreateNewDocument(collectionPath, doc){
+      try{
+        const ref = this._firestore.collection(collectionPath).doc()
+
+        const timestamp = firebase.firestore.Timestamp.now().toDate()
+        return await ref.set({ ...doc, createdAt: timestamp, id: ref.id  })
+      } catch (err) {
+          console.log('issues creating new doc', err)
+      }
+  }
 }

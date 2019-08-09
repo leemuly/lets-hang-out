@@ -1,14 +1,21 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Button } from 'react-native';
+import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Searchbar } from 'react-native-paper';
-import EventsHeader from '../components/EventsHeader';
+import TabBarIcon from '../components/TabBarIcon';
+import CreateEvent from '../components/CreateEvent'
 
 export default class EventsScreen extends React.Component {
   constructor() {
     super();
     this.state = {
+      isModalVisible: false,
+      text: '',
       firstQuery: '',
     };
+  }
+
+  closeModal() {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
   }
 
   render() {
@@ -23,6 +30,18 @@ export default class EventsScreen extends React.Component {
             }}
             value={firstQuery}
           />
+
+          <CreateEvent
+            isModalVisible={this.state.isModalVisible}
+            closeModal={() => this.closeModal()}
+          />
+
+    <TouchableOpacity
+      onPress={() => this.setState({ isModalVisible: true })}
+      style={styles.buttonContainer}
+    >
+      <TabBarIcon name="md-add-circle" />
+    </TouchableOpacity>
         </View>
       </ScrollView>
     );
@@ -30,18 +49,15 @@ export default class EventsScreen extends React.Component {
 }
 
 EventsScreen.navigationOptions = {
-  title: "Upcoming Events",
-  headerRight: (<Button
-    onPress={() => alert('This is a button!')}
-    title="+"
-    color="#000000"
-  />)
+  title: 'Upcoming Events'
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
   },
+  buttonContainer: {
+    alignSelf: "flex-end",
+  }
 });
