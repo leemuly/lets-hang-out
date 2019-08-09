@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Button } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import EventsHeader from '../components/EventsHeader';
 
@@ -16,7 +16,6 @@ export default class EventsScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.container}>
-          <EventsHeader text="Upcoming Events" />
           <Searchbar
             placeholder="Search"
             onChangeText={query => {
@@ -31,7 +30,12 @@ export default class EventsScreen extends React.Component {
 }
 
 EventsScreen.navigationOptions = {
-  title: null,
+  title: "Upcoming Events",
+  headerRight: (<Button
+    onPress={() => alert('This is a button!')}
+    title="+"
+    color="#000000"
+  />)
 };
 
 const styles = StyleSheet.create({
