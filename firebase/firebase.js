@@ -14,7 +14,7 @@ export class FirebaseWrapper {
       this._firebaseInstance = firebase.initializeApp(config);
       this._firestore = firebase.firestore();
       this.initialized = true;
-      console.log('firebase initialized :)')
+      console.log('firebase initialized :)');
     } else {
       console.log('already initialized!');
     }
