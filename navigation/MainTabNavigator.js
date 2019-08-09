@@ -3,10 +3,10 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import CatalogScreen from '../screens/CatalogScreen'
-import ShelfScreen from '../screens/ShelfScreen';
-import CardScreen from '../screens/CardScreen'
+import ExploreScreen from '../screens/ExploreScreen';
+import EventsScreen from '../screens/EventsScreen'
+import PlansScreen from '../screens/PlansScreen'
+import ProfileScreen from '../screens/ProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -14,77 +14,84 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const ExploreStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Explore: ExploreScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+ExploreStack.navigationOptions = {
+  tabBarLabel: 'Explore',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-gift${focused ? '' : '-outline'}`
-          : 'md-gift'
+          ? `ios-planet${focused ? '' : '-outline'}`
+          : 'md-planet'
       }
     />
   ),
 };
 
-HomeStack.path = '';
+ExploreStack.path = '';
 
-const CatalogStack = createStackNavigator(
+const EventsStack = createStackNavigator(
   {
-    Catalog: CatalogScreen,
+    Events: EventsScreen,
   },
   config
 );
 
-CatalogStack.navigationOptions = {
-  tabBarLabel: 'Catalog',
+
+EventsStack.navigationOptions = {
+  tabBarLabel: 'Events',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-barcode' : 'md-barcode'} />
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-list${focused ? '' : '-outline'}`
+          : 'md-list'
+      }
+    />
   ),
 };
 
-CatalogStack.path = '';
+EventsStack.path = '';
 
-const ShelfStack = createStackNavigator(
+const PlansStack = createStackNavigator(
   {
-    Shelf: ShelfScreen,
+    Plans: PlansScreen,
   },
   config
 );
 
-ShelfStack.navigationOptions = {
-  tabBarLabel: 'Shelf',
+PlansStack.navigationOptions = {
+  tabBarLabel: 'Plans',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-bookmarks' : 'md-bookmarks'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} />
   ),
 };
 
-ShelfStack.path = '';
+PlansStack.path = '';
 
-const CardStack = createStackNavigator(
+const ProfileStack = createStackNavigator(
   {
-    Card: CardScreen,
+    Profile: ProfileScreen,
   },
   config
 );
 
-CardStack.navigationOptions = {
-  tabBarLabel: 'Quotes',
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-journal' : 'md-journal'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'} />
   ),
 };
 
-CardStack.path = '';
-
+ProfileStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -103,10 +110,10 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  CatalogStack,
-  ShelfStack,
-  CardStack,
+  ExploreStack,
+  EventsStack,
+  PlansStack,
+  ProfileStack,
   SettingsStack,
 });
 

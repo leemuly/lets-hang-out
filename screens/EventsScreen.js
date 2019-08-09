@@ -2,16 +2,16 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 
-export default class CatalogScreen extends React.Component {
-    constructor (){
-        super()
-        this.state = {
-            firstQuery: '',
-          };
-    }
+export default class PlansScreen extends React.Component {
+  constructor(){
+      super()
+      this.state = {
+          firstQuery: '',
+      }
+  }
   
   render() {
-    const { firstQuery } = this.state;
+      const { firstQuery } = this.state;
     return (
       <ScrollView style={styles.container}>
         <Searchbar
@@ -26,8 +26,8 @@ export default class CatalogScreen extends React.Component {
   }
 }
 
-CatalogScreen.navigationOptions = {
-  title: 'Catalog',
+PlansScreen.navigationOptions = {
+  title: 'Upcoming Events',
 };
 
 const styles = StyleSheet.create({
