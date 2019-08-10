@@ -42,7 +42,7 @@ export default class CreateEvent extends Component {
         transparent={false}
         visible={this.props.isModalVisible}
       >
-        <View style={{ marginTop: 25 }}>
+        <View style={styles.inputsContainer}>
           <TouchableHighlight
             onPress={() => {
               this.props.closeModal();
@@ -61,7 +61,7 @@ export default class CreateEvent extends Component {
           />
 
           <DatePicker
-            style={{ width: 200 }}
+            style={{ height: 40, width: 350 }}
             date={this.state.date}
             mode="date"
             placeholder="It's on..."
@@ -103,11 +103,18 @@ export default class CreateEvent extends Component {
 }
 
 const styles = StyleSheet.create({
+  inputsContainer: {
+    flex: 1, 
+    justifyContent: "center",
+    alignItems: "center"
+  },
   input: {
+    width: 350,
     margin: 15,
     height: 40,
-    borderColor: '#7a42f4',
+    borderColor: '#808080',
     borderWidth: 1,
+    paddingHorizontal: 10,
   },
   close: {
     width: 40,
