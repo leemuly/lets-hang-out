@@ -12,7 +12,6 @@ import {
 import { FirebaseWrapper } from '../firebase/firebase';
 import TabBarIcon from '../components/TabBarIcon';
 import DatePicker from 'react-native-datepicker';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { getDate } from '../Utils';
 import PLACES_KEY from '../secrets'
 
@@ -23,6 +22,8 @@ export default class CreateEvent extends Component {
       name: '',
       date: '',
       description: '',
+      destination: '',
+      location: {}
     };
   }
 
@@ -32,10 +33,25 @@ export default class CreateEvent extends Component {
         name: this.state.name,
         date: this.state.date,
         description: this.state.description,
+        location: this.state.location
       });
       this.props.closeModal();
     } catch (error) {
       console.log('failed to create event: ', error);
+    }
+  }
+
+  async onSetDestination(destination){
+    try{
+      // this.setState({destination})
+      // const startLoc = { latitude: 40.753024, longitude: -73.981627}
+      // const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${PLACES_KEY}
+      // &input=${this.state.destination}&location=${startLoc.latitude}, ${startLoc.latitude}&radius=10000`
+      // const res = await fetch(apiUrl)
+      // const json = await res.json();
+      // console.log(json);
+    } catch (err) {
+      console.err("unable to fetch destination ", err)
     }
   }
 
@@ -90,48 +106,11 @@ export default class CreateEvent extends Component {
             }}
           />
 
-<GooglePlacesAutocomplete
-            placeholder="Located at.."
-            minLength={2} // minimum length of text to search
-            autoFocus={false}
-            listViewDisplayed="auto" // true/false/undefined
-            fetchDetails={true}
-            renderDescription={row => row.description} // custom description render
-            onPress={(data, details = null) => {
-              // 'details' is provided when fetchDetails = true
-              console.log(data, details);
-            }}
-            getDefaultValue={() => ''}
-            query={{
-              // available options: https://developers.google.com/places/web-service/autocomplete
-              key: PLACES_KEY,
-              language: 'en', // language of the results
-            }}
-            styles={{
-              textInputContainer: {
-                width: '100%',
-              },
-              description: {
-                fontWeight: 'bold',
-              },
-              predefinedPlacesDescription: {
-                color: '#1faadb',
-              },
-            }}
-            currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-            currentLocationLabel="Current location"
-            nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-
-            GooglePlacesSearchQuery={{
-              // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-              rankby: 'distance',
-              type: 'street_address',
-            }}
-            GooglePlacesDetailsQuery={{
-              // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-              fields: 'formatted_address',
-            }}
-            debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+          <TextInput
+          multiline={false}
+          style={styles.input}
+          placeholder="It's located at..."
+          onChangeText={destination => this.onSetDestination(destination)}
           />
 
           <TextInput
