@@ -8,7 +8,12 @@ import MapView from 'react-native-maps';
 
 export default function ExploreScreen() {
   return (
-      <MapView style={{flex: 1}} />
+      <MapView style={{flex: 1}} initialRegion={{
+        latitude: 40.753024, 
+        longitude: -73.981627,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }}/>
   );
 }
 

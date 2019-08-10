@@ -6,11 +6,15 @@ import {
   TouchableHighlight,
   StyleSheet,
   Button,
+  Image,
+  Text,
 } from 'react-native';
 import { FirebaseWrapper } from '../firebase/firebase';
 import TabBarIcon from '../components/TabBarIcon';
 import DatePicker from 'react-native-datepicker';
-import { getDate } from '../Utils'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { getDate } from '../Utils';
+import PLACES_KEY from '../secrets'
 
 export default class CreateEvent extends Component {
   constructor(props) {
@@ -86,6 +90,50 @@ export default class CreateEvent extends Component {
             }}
           />
 
+<GooglePlacesAutocomplete
+            placeholder="Located at.."
+            minLength={2} // minimum length of text to search
+            autoFocus={false}
+            listViewDisplayed="auto" // true/false/undefined
+            fetchDetails={true}
+            renderDescription={row => row.description} // custom description render
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              console.log(data, details);
+            }}
+            getDefaultValue={() => ''}
+            query={{
+              // available options: https://developers.google.com/places/web-service/autocomplete
+              key: PLACES_KEY,
+              language: 'en', // language of the results
+            }}
+            styles={{
+              textInputContainer: {
+                width: '100%',
+              },
+              description: {
+                fontWeight: 'bold',
+              },
+              predefinedPlacesDescription: {
+                color: '#1faadb',
+              },
+            }}
+            currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+            currentLocationLabel="Current location"
+            nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+
+            GooglePlacesSearchQuery={{
+              // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+              rankby: 'distance',
+              type: 'street_address',
+            }}
+            GooglePlacesDetailsQuery={{
+              // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+              fields: 'formatted_address',
+            }}
+            debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+          />
+
           <TextInput
             multiline={true}
             numberOfLines={6}
@@ -104,9 +152,9 @@ export default class CreateEvent extends Component {
 
 const styles = StyleSheet.create({
   inputsContainer: {
-    flex: 1, 
-    justifyContent: "center",
-    alignItems: "center"
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   input: {
     width: 350,
