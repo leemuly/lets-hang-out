@@ -1,10 +1,30 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import TabBarIcon from '../components/TabBarIcon';
-import CreateEvent from '../components/CreateEvent'
+import CreateEvent from '../components/CreateEvent';
 
 export default class EventsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: 'Upcoming Events',
+      headerRight: (
+        <TouchableOpacity
+          onPress={navigation.getParam('setState')}
+          style={{ right: 10 }}
+        >
+          <TabBarIcon name="md-add-circle" />
+        </TouchableOpacity>
+      ),
+    };
+  };
+
   constructor() {
     super();
     this.state = {
@@ -14,6 +34,14 @@ export default class EventsScreen extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.navigation.setParams({ setState: this._modalTrue });
+  }
+
+  _modalTrue = () => {
+    this.setState({ isModalVisible: true });
+  };
+
   closeModal() {
     this.setState({ isModalVisible: !this.state.isModalVisible });
   }
@@ -21,7 +49,7 @@ export default class EventsScreen extends React.Component {
   render() {
     const { firstQuery } = this.state;
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <View style={styles.container}>
           <Searchbar
             placeholder="Search"
@@ -35,29 +63,34 @@ export default class EventsScreen extends React.Component {
             isModalVisible={this.state.isModalVisible}
             closeModal={() => this.closeModal()}
           />
-
-    <TouchableOpacity
-      onPress={() => this.setState({ isModalVisible: true })}
-      style={styles.buttonContainer}
-    >
-      <TabBarIcon name="md-add-circle" />
-    </TouchableOpacity>
         </View>
       </ScrollView>
     );
   }
 }
 
-EventsScreen.navigationOptions = {
-  title: 'Upcoming Events'
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
+    justifyContent: 'space-between',
+  },
+  buttonOverlay: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5',
   },
   buttonContainer: {
-    alignSelf: "flex-end",
-  }
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
+    right: 10,
+    marginBottom: 50,
+  },
+  button: {
+    resizeMode: 'contain',
+    width: 50,
+    height: 50,
+    //backgroundColor:'black'
+  },
 });

@@ -3,7 +3,7 @@ import {
   Modal,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
   Button,
   Text,
@@ -60,7 +60,7 @@ export default class CreateEvent extends Component {
     return (
       <Modal
         animationType="slide"
-        transparent={false}
+        transparent={true}
         visible={this.props.isModalVisible}
       >
         <View style={styles.modalContainer}>
@@ -69,14 +69,14 @@ export default class CreateEvent extends Component {
               <Text style={styles.headerText} >
                 Add an upcoming event
               </Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => {
                   this.props.closeModal();
                 }}
                 style={styles.close}
               >
                 <TabBarIcon name="md-close" />
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
 
             <TextInput
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   close: {
-    width: 15,
-    height: 15
+    width: 18,
+    height: 18
   },
 });
