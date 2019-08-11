@@ -9,6 +9,8 @@ import {
 import { Searchbar } from 'react-native-paper';
 import TabBarIcon from '../components/TabBarIcon';
 import CreateEvent from '../components/CreateEvent';
+import { FirebaseWrapper } from '../firebase/firebase';
+import { EventListing } from '../components/EventListing';
 
 export default class EventsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -31,11 +33,16 @@ export default class EventsScreen extends React.Component {
       isModalVisible: false,
       text: '',
       firstQuery: '',
+      events: [],
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.navigation.setParams({ setState: this._modalTrue });
+    await FirebaseWrapper.GetInstance().SetupCollectionListener(
+      'events',
+      events => this.setState({ events })
+    );
   }
 
   _modalTrue = () => {
@@ -63,6 +70,13 @@ export default class EventsScreen extends React.Component {
             isModalVisible={this.state.isModalVisible}
             closeModal={() => this.closeModal()}
           />
+
+          <ScrollView>
+            {this.state.events &&
+              this.state.events.map(event => (
+                <EventListing eventInfo={event} key={event.id} />
+              ))}
+          </ScrollView>
         </View>
       </ScrollView>
     );

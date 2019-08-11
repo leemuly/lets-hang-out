@@ -38,4 +38,19 @@ export class FirebaseWrapper {
           console.log('issues creating new doc', err)
       }
   }
+
+  async SetupCollectionListener(collectionPath, callback){
+    try {
+      await this._firestore.collection(collectionPath)
+      .orderBy('date', 'asc').onSnapshot(querySnapshot => {
+        let container = []
+        querySnapshot.forEach(doc => {
+          container.push(doc.data())
+        })
+        return callback(container)
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
 }
