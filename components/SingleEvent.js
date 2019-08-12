@@ -19,7 +19,7 @@ export default class SingleEvent extends Component {
     return (
       <Modal
         animationType="slide"
-        transparent={false}
+        transparent={true}
         visible={this.props.isSingleEventModalVisible}
       >
         <View style={styles.modalContainer}>
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
       height: 380,
       backgroundColor: '#fff',
       padding: 20,
+      borderRadius: 10
     },
     inputsHeader: {
       flex: 1,
