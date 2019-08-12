@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
+import { StyleSheet } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { FirebaseWrapper } from '../firebase/firebase';
-import SingleEvent from '../components/SingleEvent';
 
 export default class ExploreScreen extends React.Component {
   constructor() {

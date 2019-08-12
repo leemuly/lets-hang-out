@@ -83,23 +83,23 @@ export default class EventsScreen extends React.Component {
             {this.state.events &&
               this.state.events.map(event => (
                 <TouchableOpacity
-                  onPress={() => this.setState({
-                    isSingleEventModalVisible: true,
-                    singleEvent: event,
-                  })}
+                  onPress={() =>
+                    this.setState({
+                      isSingleEventModalVisible: true,
+                      singleEvent: event,
+                    })
+                  }
                   key={`opacity: ${event.id}`}
                 >
                   <EventListing eventInfo={event} key={event.id} />
-                  <SingleEvent
-                    isSingleEventModalVisible={
-                      this.state.isSingleEventModalVisible
-                    }
-                    closeSingleEventModal={() => this.closeSingleEventModal()}
-                    eventInfo={event}
-                    key={`singleEvent: ${event.id}`}
-                  />
                 </TouchableOpacity>
               ))}
+            <SingleEvent
+              isSingleEventModalVisible={this.state.isSingleEventModalVisible}
+              closeSingleEventModal={() => this.closeSingleEventModal()}
+              eventInfo={this.state.singleEvent}
+              key={`singleEvent: ${this.state.singleEvent.id}`}
+            />
           </ScrollView>
         </View>
       </ScrollView>
