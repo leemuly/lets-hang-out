@@ -36,7 +36,7 @@ export default class CreateEvent extends Component {
         location: this.state.location,
       });
       this.setState(defaultState);
-      this.props.closeModal();
+      this.props.closeCreateEventModal();
     } catch (error) {
       console.log('failed to create event: ', error);
     }
@@ -61,7 +61,7 @@ export default class CreateEvent extends Component {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={this.props.isModalVisible}
+        visible={this.props.isCreateEventModalVisible}
       >
         <View style={styles.modalContainer}>
           <View style={styles.inputsContainer}>
@@ -71,7 +71,7 @@ export default class CreateEvent extends Component {
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.closeModal();
+                  this.props.closeCreateEventModal();
                 }}
                 style={styles.close}
               >

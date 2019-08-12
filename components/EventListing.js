@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Modal } from 'react-native';
 
 export function EventListing(props) {
   return (
     <View style={styles.eventContainer}>
-      <Text style={styles.eventText}>{props.eventInfo.name} </Text>
+      <Text style={styles.eventTitle}>{props.eventInfo.name} </Text>
+      <Text style={styles.eventDetails}>{props.eventInfo.date} | {props.eventInfo.location}</Text>
     </View>
   );
 }
@@ -21,14 +22,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  username: {
-    fontSize: 18,
+  eventTitle: {
+    fontSize: 26,
     fontWeight: 'bold',
+    padding: 5,
+    fontSize: 15
   },
-  dateUserContainer: {
-    marginLeft: 3
-  },
-  eventText: {
+  eventDetails: {
+    fontSize: 20,
     padding: 5,
     fontSize: 15
   }

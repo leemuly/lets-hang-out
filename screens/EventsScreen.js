@@ -4,15 +4,16 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import TabBarIcon from '../components/TabBarIcon';
 import CreateEvent from '../components/CreateEvent';
-import { FirebaseWrapper } from '../firebase/firebase';
+import { FirebaseWrapper } from '../firebase/firebase'; 
 import { EventListing } from '../components/EventListing';
+import SingleEvent from '../components/SingleEvent';
 
 export default class EventsScreen extends React.Component {
+  //header title and create event button
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Upcoming Events',
@@ -30,27 +31,35 @@ export default class EventsScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      isModalVisible: false,
+      isCreateEventModalVisible: false,
+      isSingleEventModalVisible: false,
       text: '',
       firstQuery: '',
       events: [],
+      singleEvent: {}
     };
   }
 
   async componentDidMount() {
-    this.props.navigation.setParams({ setState: this._modalTrue });
+    //enables us to pass props to header which renders at a different time
+    this.props.navigation.setParams({ setState: this._createEventModalTrue });
     await FirebaseWrapper.GetInstance().SetupCollectionListener(
       'events',
       events => this.setState({ events })
     );
   }
 
-  _modalTrue = () => {
-    this.setState({ isModalVisible: true });
+  //enables create event button in header
+  _createEventModalTrue = () => {
+    this.setState({ isCreateEventModalVisible: true });
   };
 
-  closeModal() {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+  closeCreateEventModal() {
+    this.setState({ isCreateEventModalVisible: !this.state.isCreateEventModalVisible });
+  }
+
+  closeSingleEventModal() {
+    this.setState({ isSingleEventModalVisible: !this.state.isCreateEventModalVisible })
   }
 
   render() {
@@ -67,14 +76,22 @@ export default class EventsScreen extends React.Component {
           />
 
           <CreateEvent
-            isModalVisible={this.state.isModalVisible}
-            closeModal={() => this.closeModal()}
+            isCreateEventModalVisible={this.state.isCreateEventModalVisible}
+            closeCreateEventModal={() => this.closeCreateEventModal()}
+          />
+
+          <SingleEvent 
+            isSingleEventModalVisible={this.state.isSingleEventModalVisible}
+            closeSingleEventModal={() => this.closeSingleEventModal()}
+            eventInfo={event}
           />
 
           <ScrollView>
             {this.state.events &&
               this.state.events.map(event => (
-                <EventListing eventInfo={event} key={event.id} />
+                <TouchableOpacity onPress={this.setState({ isSingleEventModalVisible: true, singleEvent: event })}>
+                  <EventListing eventInfo={event} key={event.id} />
+                </TouchableOpacity>
               ))}
           </ScrollView>
         </View>
@@ -105,6 +122,5 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 50,
     height: 50,
-    //backgroundColor:'black'
   },
 });
