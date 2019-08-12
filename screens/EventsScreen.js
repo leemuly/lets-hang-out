@@ -1,14 +1,9 @@
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import TabBarIcon from '../components/TabBarIcon';
 import CreateEvent from '../components/CreateEvent';
-import { FirebaseWrapper } from '../firebase/firebase'; 
+import { FirebaseWrapper } from '../firebase/firebase';
 import { EventListing } from '../components/EventListing';
 import SingleEvent from '../components/SingleEvent';
 
@@ -36,7 +31,7 @@ export default class EventsScreen extends React.Component {
       text: '',
       firstQuery: '',
       events: [],
-      singleEvent: {}
+      singleEvent: {},
     };
   }
 
@@ -55,11 +50,15 @@ export default class EventsScreen extends React.Component {
   };
 
   closeCreateEventModal() {
-    this.setState({ isCreateEventModalVisible: !this.state.isCreateEventModalVisible });
+    this.setState({
+      isCreateEventModalVisible: !this.state.isCreateEventModalVisible,
+    });
   }
 
   closeSingleEventModal() {
-    this.setState({ isSingleEventModalVisible: !this.state.isCreateEventModalVisible })
+    this.setState({
+      isSingleEventModalVisible: !this.state.isSingleEventModalVisible,
+    });
   }
 
   render() {
@@ -80,17 +79,25 @@ export default class EventsScreen extends React.Component {
             closeCreateEventModal={() => this.closeCreateEventModal()}
           />
 
-          <SingleEvent 
-            isSingleEventModalVisible={this.state.isSingleEventModalVisible}
-            closeSingleEventModal={() => this.closeSingleEventModal()}
-            eventInfo={event}
-          />
-
           <ScrollView>
             {this.state.events &&
               this.state.events.map(event => (
-                <TouchableOpacity onPress={this.setState({ isSingleEventModalVisible: true, singleEvent: event })}>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    isSingleEventModalVisible: true,
+                    singleEvent: event,
+                  })}
+                  key={`opacity: ${event.id}`}
+                >
                   <EventListing eventInfo={event} key={event.id} />
+                  <SingleEvent
+                    isSingleEventModalVisible={
+                      this.state.isSingleEventModalVisible
+                    }
+                    closeSingleEventModal={() => this.closeSingleEventModal()}
+                    eventInfo={event}
+                    key={`singleEvent: ${event.id}`}
+                  />
                 </TouchableOpacity>
               ))}
           </ScrollView>

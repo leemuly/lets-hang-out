@@ -10,29 +10,23 @@ import {
 } from 'react-native';
 import TabBarIcon from '../components/TabBarIcon';
 
-
 export default class SingleEvent extends Component {
   constructor(props) {
     super(props);
-  }
-
-  closeSingleEventModal() {
-    this.setState({ isSingleEventModalVisible: !this.state.isSingleEventModalVisible });
   }
 
   render() {
     return (
       <Modal
         animationType="slide"
-        transparent={true}
+        transparent={false}
         visible={this.props.isSingleEventModalVisible}
       >
         <View style={styles.modalContainer}>
           <View style={styles.inputsContainer}>
             <View style={styles.inputsHeader}>
-              <Text style={styles.headerText} >
-                {this.props.eventInfo.name}
-              </Text>
+              <Text style={styles.headerText}>{this.props.eventInfo.name}</Text>
+             
               <TouchableOpacity
                 onPress={() => {
                   this.props.closeSingleEventModal();
@@ -41,8 +35,17 @@ export default class SingleEvent extends Component {
               >
                 <TabBarIcon name="md-close" />
               </TouchableOpacity>
+              
             </View>
+            <Text>
+                    {this.props.eventInfo.date} | {this.props.eventInfo.location}
+                    </Text>
+                <View style={styles.eventInfo}>
 
+                    <Text>
+                    {this.props.eventInfo.description}
+                    </Text>
+                </View>
 
             <Button title="Add Plan" />
           </View>
@@ -52,4 +55,37 @@ export default class SingleEvent extends Component {
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#00000080',
+    },
+    inputsContainer: {
+      width: 400,
+      height: 380,
+      backgroundColor: '#fff',
+      padding: 20,
+    },
+    inputsHeader: {
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "baseline",
+    },
+    headerText: {
+      fontSize: 16,
+      fontWeight: "bold"
+    },
+    eventInfo: {
+        flex: 7,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    close: {
+      width: 18,
+      height: 18
+    },
+  });
+  
