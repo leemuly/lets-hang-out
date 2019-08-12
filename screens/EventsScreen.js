@@ -97,7 +97,6 @@ export default class EventsScreen extends React.Component {
                     closeSingleEventModal={() => this.closeSingleEventModal()}
                     eventInfo={event}
                     key={`singleEvent: ${event.id}`}
-      
                   />
                 </TouchableOpacity>
               ))}

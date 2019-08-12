@@ -1,14 +1,16 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { StyleSheet, View } from 'react-native';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import { FirebaseWrapper } from '../firebase/firebase';
+import SingleEvent from '../components/SingleEvent';
 
 export default class ExploreScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      events: []
-    }
+      events: [],
+      isSingleEventModalVisible: false,
+    };
   }
 
   async componentDidMount() {
@@ -18,6 +20,12 @@ export default class ExploreScreen extends React.Component {
     );
   }
 
+  closeSingleEventModal() {
+    this.setState({
+      isSingleEventModalVisible: !this.state.isSingleEventModalVisible,
+    });
+  }
+
   render() {
     return (
       <MapView
@@ -25,18 +33,23 @@ export default class ExploreScreen extends React.Component {
         initialRegion={{
           latitude: 40.7135741,
           longitude: -73.9745921,
-          latitudeDelta: 0.1300,
+          latitudeDelta: 0.13,
           longitudeDelta: 0.0429,
         }}
       >
-        {
-          this.state.events.map(event => (
-            <Marker
-              coordinate={event.location}
-              key={event.id}
-            />
-          ))
-        }
+        {this.state.events.map(event => (
+          <Marker
+            title={event.name}
+            description={event.date}
+            coordinate={event.location}
+            key={event.id}
+            onCalloutPress={() =>
+              this.setState({
+                isSingleEventModalVisible: true,
+              })
+            }
+          />
+        ))}
 
       </MapView>
     );
