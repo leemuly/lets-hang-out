@@ -4,8 +4,11 @@ import { Text, View, StyleSheet, Modal } from 'react-native';
 export function EventListing(props) {
   return (
     <View style={styles.eventContainer}>
-      <Text style={styles.eventTitle}>{props.eventInfo.name} </Text>
-      <Text style={styles.eventDetails}>{props.eventInfo.date} | {props.eventInfo.location}</Text>
+      <View style={styles.listingHeader}>
+      <Text style={styles.eventTitle}>{props.eventInfo.name}</Text>
+      <Text style={styles.eventDate}>{props.eventInfo.date}</Text>
+      </View>
+      <Text style={styles.eventDetails}>{props.eventInfo.address}</Text>
     </View>
   );
 }
@@ -17,10 +20,17 @@ const styles = StyleSheet.create({
     borderBottomColor: '#dadada',
     borderBottomWidth: 1,
   }, 
+  listingHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  eventDate: {
+    color: 'grey'
   },
   eventTitle: {
     fontSize: 26,

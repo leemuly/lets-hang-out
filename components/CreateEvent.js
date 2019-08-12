@@ -18,7 +18,7 @@ const defaultState = {
   name: '',
   date: '',
   description: '',
-  location: '',
+  address: '',
 };
 
 export default class CreateEvent extends Component {
@@ -33,7 +33,7 @@ export default class CreateEvent extends Component {
         name: this.state.name,
         date: this.state.date,
         description: this.state.description,
-        location: this.state.location,
+        address: this.state.address,
       });
       this.setState(defaultState);
       this.props.closeCreateEventModal();
@@ -117,8 +117,8 @@ export default class CreateEvent extends Component {
               multiline={false}
               style={styles.input}
               placeholder="It's located at..."
-              value={this.state.location}
-              onChangeText={location => this.setState({ location })}
+              value={this.state.address}
+              onChangeText={address => this.setState({ address })}
             />
 
             <TextInput
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000080',
   },
   inputsContainer: {
-    width: 400,
+    width: '90%',
     height: 380,
     backgroundColor: '#fff',
     padding: 20,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   input: {
-    width: 350,
+    width: '90%',
     margin: 15,
     height: 40,
     borderColor: '#808080',
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   dateInput: {
-    width: 350,
+    width: '90%',
     margin: 15,
     height: 40,
   },

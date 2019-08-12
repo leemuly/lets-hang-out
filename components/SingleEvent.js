@@ -38,7 +38,7 @@ export default class SingleEvent extends Component {
               
             </View>
             <Text>
-                    {this.props.eventInfo.date} | {this.props.eventInfo.location}
+                    {this.props.eventInfo.date} | {this.props.eventInfo.address}
                     </Text>
                 <View style={styles.eventInfo}>
 
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#00000080',
     },
     inputsContainer: {
-      width: 400,
+      width: '90%',
       height: 380,
       backgroundColor: '#fff',
       padding: 20,
