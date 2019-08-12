@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   Modal,
-  TextInput,
   View,
   TouchableOpacity,
   StyleSheet,
@@ -9,10 +8,23 @@ import {
   Text,
 } from 'react-native';
 import TabBarIcon from '../components/TabBarIcon';
+import { FirebaseWrapper } from '../firebase/firebase'
 
 export default class SingleEvent extends Component {
   constructor(props) {
     super(props);
+  }
+
+  async createPlan(event) {
+    try {
+        console.log('hi')
+      await FirebaseWrapper.GetInstance().CreateNewDocument('plans', {
+        event
+      });
+      this.props.closeSingleEventModal();
+    } catch (error) {
+      console.log('failed to create event: ', error);
+    }
   }
 
   render() {
@@ -47,7 +59,7 @@ export default class SingleEvent extends Component {
                     </Text>
                 </View>
 
-            <Button title="Add Plan" />
+            <Button title="Add Plan" onPress={() => this.createPlan(this.props.eventInfo)}/>
           </View>
         </View>
       </Modal>
