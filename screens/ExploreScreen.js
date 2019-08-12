@@ -37,20 +37,21 @@ export default class ExploreScreen extends React.Component {
           longitudeDelta: 0.0429,
         }}
       >
-        {this.state.events.map(event => (
-          <Marker
-            title={event.name}
-            description={event.date}
-            coordinate={event.location}
-            key={event.id}
-            onCalloutPress={() =>
-              this.setState({
-                isSingleEventModalVisible: true,
-              })
-            }
-          />
-        ))}
-
+        {this.state.events
+          .filter(event => event.location)
+          .map(event => (
+            <Marker
+              title={event.name}
+              description={event.date}
+              coordinate={event.location}
+              key={event.id}
+              onCalloutPress={() =>
+                this.setState({
+                  isSingleEventModalVisible: true,
+                })
+              }
+            />
+          ))}
       </MapView>
     );
   }
