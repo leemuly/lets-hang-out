@@ -77,21 +77,21 @@ PlansStack.navigationOptions = {
 
 PlansStack.path = '';
 
-const ProfileStack = createStackNavigator(
-  {
-    Profile: ProfileScreen,
-  },
-  config
-);
+// const ProfileStack = createStackNavigator(
+//   {
+//     Profile: ProfileScreen,
+//   },
+//   config
+// );
 
-ProfileStack.navigationOptions = {
-  tabBarLabel: 'Profile',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'} />
-  ),
-};
+// ProfileStack.navigationOptions = {
+//   tabBarLabel: 'Profile',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'} />
+//   ),
+// };
 
-ProfileStack.path = '';
+// ProfileStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -113,7 +113,7 @@ const tabNavigator = createBottomTabNavigator({
   ExploreStack,
   EventsStack,
   PlansStack,
-  ProfileStack,
+  // ProfileStack,
   SettingsStack,
 });
 
